@@ -6,7 +6,7 @@ Vue.component('columns', {
     <h2 class="error" v-for="error in errors">{{ error }}</h2>
         <div class="columns-wrapper">
             <div class="column"> 
-            <newnote></newnote>
+						<newnote></newnote>
             <ul>
                 <li class="notes" v-for="note in column1">
                 <p class="p-title">{{ note.title }}</p>
@@ -69,6 +69,67 @@ Vue.component('columns', {
             }
         })
     },
+		methods: {
+			newStatus1(note, t) {
+					t.completed = true
+					let count = 0
+					note.status = 0
+					this.errors = []
+					for (let i = 0; i < 5; i++) {
+							if (note.subtasks[i].title != null) {
+									count++
+							}
+					}
+
+					for (let i = 0; i < count; i++) {
+							if (note.subtasks[i].completed === true) {
+									note.status++
+							}
+					}
+					if (note.status/count*100 >= 50 && note.status/count*100 < 100 && this.column2.length < 5) {
+									this.column2.push(note)
+									this.column1.splice(this.column1.indexOf(note), 1)
+					} else if (this.column2.length === 5) {
+							this.errors.push('Выполните предыдущие задания чтобы добавить заметку.')
+							if(this.column1.length > 0) {
+									this.column1.forEach(item => {
+											item.subtasks.forEach(item => {
+													item.completed = true;
+											})
+									})
+							}
+					}
+			},
+			newStatus2(note, t) {
+					t.completed = true
+					let count = 0
+					note.status = 0
+					for (let i = 0; i < 5; i++){
+							if (note.subtasks[i].title != null) {
+									count++
+							}
+					}
+					for (let i = 0; i < count; i++) {
+							if (note.subtasks[i].completed === true) {
+									note.status++
+							}
+					}
+					if (note.status/count*100 === 100) {
+							this.column3.push(note)
+							this.column2.splice(this.column2.indexOf(note), 1)
+							note.date = new Date()
+					}
+					if (this.column2.length < 5) {
+							if (this.column1.length > 0) {
+									this.column1.forEach(item => {
+											item.subtasks.forEach(item => {
+													item.completed = false;
+											})
+									})
+							}
+					}
+			}
+		},
     props: {
         note: {
             title: {
@@ -96,80 +157,22 @@ Vue.component('columns', {
                 required: false
             }
         },
-    },
-    methods: {
-        newStatus1(note, t) {
-            t.completed = true
-            let count = 0
-            note.status = 0
-            this.errors = []
-            for (let i = 0; i < 5; i++) {
-                if (note.subtasks[i].title != null) {
-                    count++
-                }
-            }
+    }, 
+		computed: {
 
-            for (let i = 0; i < count; i++) {
-                if (note.subtasks[i].completed === true) {
-                    note.status++
-                }
-            }
-            if (note.status/count*100 >= 50 && note.status/count*100 < 100 && this.column2.length < 5) {
-                    this.column2.push(note)
-                    this.column1.splice(this.column1.indexOf(note), 1)
-            } else if (this.column2.length === 5) {
-                this.errors.push('Выполните предыдущие задания чтобы добавить заметку.')
-                if(this.column1.length > 0) {
-                    this.column1.forEach(item => {
-                        item.subtasks.forEach(item => {
-                            item.completed = true;
-                        })
-                    })
-                }
-            }
-        },
-        newStatus2(note, t) {
-            t.completed = true
-            let count = 0
-            note.status = 0
-            for (let i = 0; i < 5; i++){
-                if (note.subtasks[i].title != null) {
-                    count++
-                }
-            }
-            for (let i = 0; i < count; i++) {
-                if (note.subtasks[i].completed === true) {
-                    note.status++
-                }
-            }
-            if (note.status/count*100 === 100) {
-                this.column3.push(note)
-                this.column2.splice(this.column2.indexOf(note), 1)
-                note.date = new Date()
-            }
-            if (this.column2.length < 5) {
-                if (this.column1.length > 0) {
-                    this.column1.forEach(item => {
-                        item.subtasks.forEach(item => {
-                            item.completed = false;
-                        })
-                    })
-                }
-            }
-        }
     }
 })
 
 Vue.component('newnote', {
     template: `
     <section>
-        <a href="#openModal">Создать заметку</a>
+        <a href="#openModal" class="btnModal">Создать заметку</a>
         <div id="openModal" class="modal">
         <div class="modal-dialog">
             <div class="modal-content">
+						<a href="#close" title="Закрыть" class="close">x</a>
                 <div class="modal-header">
                     <h2 class="modal-title">Новая запись</h2>
-                    <a href="#close" title="Закрыть" class="close">+</a>
                 </div>
                 <div class="modal-body">
                     <form class="addform" @submit.prevent="onSubmit">
@@ -209,7 +212,7 @@ Vue.component('newnote', {
                             {title: this,subtask2, completed: false},
                             {title: this,subtask3, completed: false},
                             {title: this,subtask4, completed: false},
-                            {title: this,subtask5, completed: false},],
+                            {title: this,subtask5, completed: false}],
                 date: null,
                 status: 0
             }
