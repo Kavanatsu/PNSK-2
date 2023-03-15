@@ -8,35 +8,11 @@
   <script defer src="js/main.js"></script>
 </head>
 <body>
-  <div class="nav-bar">
-    <h1>Заметки</h1>
-  </div>
-  <section>
-    <a href="#openModal"></a>
-    <div id="openModal" class="modal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h2>Новая запись</h2>
-            <a href="#close" title="close" class="close">x</a>
-          </div>
-          <div class="modal-body">
-            <form class="addform">
-              <p>
-                <label for="title">Название заметки</label>
-                <input type="text" id="title" required>
-              </p>
-              <input id="subtask1" maxlength="30" required>
-              <input id="subtask2" maxlength="30" required>
-              <input id="subtask3" maxlength="30" required>
-              <input id="subtask4" maxlength="30">
-              <input id="subtask5" maxlength="30">
-              <button type="submit">Добавить заметку</button>
-            </form>
-          </div>
-        </div>
-      </div>
+  <div id="app">
+    <div class="nav-bar">
+      <h1>{{ name }}</h1>
     </div>
-  </section>
+    <columns></columns>
+  </div>
 </body>
 </html>
