@@ -4,9 +4,9 @@ Vue.component('columns', {
     template:`
     <div class="columns">
     <h2 class="error" v-for="error in errors">{{ error }}</h2>
-    <newnote></newnote>
         <div class="columns-wrapper">
-            <div class="column">
+            <div class="column"> 
+            <newnote></newnote>
             <ul>
                 <li class="notes" v-for="note in column1">
                 <p class="p-title">{{ note.title }}</p>
@@ -167,15 +167,16 @@ Vue.component('newnote', {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2>Новая запись</h2>
-                    <a href="#close" title="close" class="close">x</a>
+                    <h2 class="modal-title">Новая запись</h2>
+                    <a href="#close" title="Закрыть" class="close">+</a>
                 </div>
                 <div class="modal-body">
                     <form class="addform" @submit.prevent="onSubmit">
                     <p>
-                        <label for="title">Название заметки</label>
+                        <label for="title">Название заметки:</label>
                         <input type="text" id="title" v-model="title" required>
                     </p>
+                    <label for="subtask1">Задания:</label>
                     <input id="subtask1" maxlength="30" v-model="subtask1" required>
                     <input id="subtask2" maxlength="30" v-model="subtask2" required>
                     <input id="subtask3" maxlength="30" v-model="subtask3" required>
