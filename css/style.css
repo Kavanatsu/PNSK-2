@@ -15,31 +15,32 @@ body {
 	min-height: 100vh;
 }
 
+/* Навигация */
 
 .nav-bar {
     text-align: center;
     background: linear-gradient(to left, #64e2e6, #91ffad);
     color: #3b3a3a;
-		font-size: 24px;
-		padding: 1px 0;
-		letter-spacing: 5px;
+	font-size: 24px;
+	padding: 1px 0;
+	letter-spacing: 3px;
 }
 
-.columns {
-    background-color: aqua;
-}
+/* Колонки */
 
 .columns-wrapper {
-    background-color: blue;
     display: flex;
     flex-direction: row;
     height: 94vh;
     max-width: 90vw;
-		align-items: center;
+	align-items: center;
+}
+
+.column-title {
+    font-size: 35px;
 }
 
 .column {
-    background-color: azure;
     height: 80vh;
     width: 30vw;
     padding: 10px;
@@ -48,16 +49,58 @@ body {
     flex-direction: column;
 }
 
+ul {
+    list-style-type: none;
+}
+
+.column>ul {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: flex-start;
+    justify-content: flex-start;
+}
+
 .column:nth-child(1) {
     border-right: 1px solid black;
-    border-top-left-radius: 40px;
-    border-bottom-left-radius: 40px;
+    /* border-top-left-radius: 40px;
+    border-bottom-left-radius: 40px; */
 }
 
 .column:nth-child(3) {
     border-left: 1px solid black;
-    border-top-right-radius: 40px;
-    border-bottom-right-radius: 40px;
+    /* border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px; */
+}
+
+/* Заметки */
+
+.notes {
+    min-width: 120px; 
+    min-height: 120px;
+    margin: 5px;
+    background-color: rgb(247, 228, 121);
+    box-shadow: 1px 1px 3px 1px #c2c0c0;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow-wrap: break-word;
+}
+
+.notes>ul {
+    display: flex;
+    flex-direction: column;
+}
+
+.p-title {
+    font-size: 24px;
+}
+
+.tasks {
+    display: flex;
+    list-style-type: disc;
+    align-items: center;
+    justify-content: center;
 }
 
 .flex-revers {
@@ -65,8 +108,10 @@ body {
     flex-direction: column-reverse;
 }
 
-.p-title {
-    font-size: large;
+/* Модальное окно */
+
+section {
+    position: relative;
 }
 
 .modal {
@@ -185,27 +230,19 @@ body {
 }
 
 .btnModal {
-	display: block;
-  padding: 10px 15px;
-  border: 1px solid #ccc;
-  background-color: #fff;
-  border-radius: 10px;
-  color: #000;
-  text-decoration: none;
-}
-
-.notes {
-    background-color: bisque;
-    width: 200px;
-    height: 300px;
-    margin: 5px;
-}
-
-.tasks {
-    display: flex;
-    list-style-type: disc;
-    align-items: center;
-    justify-content: center;
+    width: 20px;
+    height: 20px;
+    display: block;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 10px;
+    color: #000;
+    text-decoration: none;
+    margin: 20px;
+    position: absolute;
+    font-size: 30px;
+    text-align: center;
 }
 
 .addform {
@@ -218,14 +255,9 @@ body {
     text-decoration: line-through;
 }
 
-ul {
-    list-style-type: none;
-}
-
 button {
     cursor: pointer;
 }
-
 
 @media (min-width: 576px) {
     .modal-dialog {
@@ -240,6 +272,4 @@ button {
         box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
     }
 }
-
-
 
