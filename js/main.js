@@ -32,7 +32,6 @@ Vue.component('columns', {
     template:`
     <div id="columns">
         <div class="column-wrapper">
-            <h2 class="error" v-for="error in errors">{{error}}</h2>
             <div class="columns-wrapper">
                 <div class="column">
                     <newnote></newnote>
@@ -73,7 +72,7 @@ Vue.component('columns', {
                         <li class="notes" v-for="note in column3">
                             <p class="p-title">{{ note.title }}</p>
                             <div class="flex-revers">
-                                <p>{{ note.date }}</p>
+                                <p>{{ note.date | formatDate }}</p>
                                 <ul>
                                     <li class="tasks" v-for="t in note.subtasks" v-if="t.title != null">
                                         <input @click="t.completed = true"
@@ -88,6 +87,7 @@ Vue.component('columns', {
                 </div>
             </div>
         </div>
+				<h2 class="error" v-for="error in errors">{{error}}</h2>
     </div>
     `,
     data() {
@@ -108,7 +108,7 @@ Vue.component('columns', {
                 this.column1.push(note)
                 this.saveNote1();
             } else {
-                this.errors.push("Вы не можете добавить новую заметку, пока не выполните новые задания.")
+								eventBus.$emit('error-in-form', errors)
             }
         })
     },
@@ -193,33 +193,37 @@ Vue.component('columns', {
                 }
             }
             this.saveNote3();
-        }
-    },		
+        },
+			},
+		filters: {
+			formatDate: d => d.toLocaleString('ru-RU').replace(',', '').slice(0, -3)
+    }		
 })
 
 Vue.component('newnote', {
     template: `
     <section>
-        <a href="#openModal" class="btnModal">+</a>
+        <a href="#openModal" class="modallink"></a>
         <div id="openModal" class="modal">
             <div class="modal-dialog">
                 <div class="modal-content">
                         <a href="#close" title="Закрыть" class="close">x</a>
                     <div class="modal-header">
                         <h2 class="modal-title">Новая запись</h2>
+												<h2 class="error" v-for="error in errors">{{error}}</h2>
                     </div>
                     <div class="modal-body">
                         <form class="addform" @submit.prevent="onSubmit">
                         <p>
                             <label for="title">Название заметки:</label>
-                            <input type="text" id="title" v-model="title" required>
+                            <input type="text" id="title" placeholder="Название" v-model="title" required>
                         </p>
                         <label for="subtask1">Задания:</label>
-                        <input id="subtask1" maxlength="30" v-model="subtask1" required>
-                        <input id="subtask2" maxlength="30" v-model="subtask2" required>
-                        <input id="subtask3" maxlength="30" v-model="subtask3" required>
-                        <input id="subtask4" maxlength="30" v-model="subtask4">
-                        <input id="subtask5" maxlength="30" v-model="subtask5">
+                        <input id="subtask1" maxlength="30" placeholder="Задание 1" v-model="subtask1" required>
+                        <input id="subtask2" maxlength="30" placeholder="Задание 2" v-model="subtask2" required>
+                        <input id="subtask3" maxlength="30" placeholder="Задание 3" v-model="subtask3" required>
+                        <input id="subtask4" maxlength="30" placeholder="Задание 4" v-model="subtask4">
+                        <input id="subtask5" maxlength="30" placeholder="Задание 5" v-model="subtask5">
                         <button type="submit">Создать</button>
                         </form>
                     </div>
@@ -239,6 +243,11 @@ Vue.component('newnote', {
             errors: [],
         }
     },
+		mounted () {
+			eventBus.$on('error-in-form', errors => {
+				this.errors.push("Вы не можете добавить заметку, пока не выполните новые задания.")
+			})
+		},
     methods: {
         onSubmit() {
             let note = {

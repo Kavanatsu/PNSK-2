@@ -4,8 +4,8 @@
 }
 
 * {
-    margin: 0 auto;
-    padding: 0 auto;
+	margin: 0 auto;
+	padding: 0 auto;
 }
 
 body {
@@ -13,105 +13,126 @@ body {
 	color: #000;
 	font-weight: 900;	
 	min-height: 100vh;
+	background-color: #fff;
 }
 
 /* Навигация */
 
 .nav-bar {
-    text-align: center;
-    background: linear-gradient(to left, #64e2e6, #91ffad);
-    color: #3b3a3a;
+  text-align: center;
+  background: linear-gradient(to left, #64e2e6, #91ffad);
+  color: #3b3a3a;
 	font-size: 24px;
 	padding: 1px 0;
 	letter-spacing: 3px;
 }
 
+.error {
+	text-align: center;
+	font-size: 27px;
+	background-color: #ffc2c2;
+}
+
 /* Колонки */
 
 .columns-wrapper {
-    display: flex;
-    flex-direction: row;
-    height: 94vh;
-    max-width: 90vw;
+  display: flex;
+  flex-direction: row;
+  height: 94vh;
+  max-width: 90vw;
 	align-items: center;
 }
 
 .column-title {
-    font-size: 35px;
+  font-size: 35px;
 }
 
 .column {
-    height: 80vh;
-    width: 30vw;
-    padding: 10px;
-    margin: 30px 0;
-    display: flex;
-    flex-direction: column;
+  height: 80vh;
+  width: 30vw;
+  padding: 10px;
+  margin: 30px 0;
+  display: flex;
+  flex-direction: column;
 }
 
 ul {
-    list-style-type: none;
+  list-style-type: none;
 }
 
-.column>ul {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-content: flex-start;
-    justify-content: flex-start;
+.column>ul, .flex-revers>ul {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-content: flex-start;
+  justify-content: flex-start;
+	padding: 0;
 }
 
 .column:nth-child(1) {
-    border-right: 1px solid black;
-    /* border-top-left-radius: 40px;
-    border-bottom-left-radius: 40px; */
+  border-right: 1px solid black;
+  /* border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px; */
 }
 
 .column:nth-child(3) {
-    border-left: 1px solid black;
-    /* border-top-right-radius: 40px;
-    border-bottom-right-radius: 40px; */
+  border-left: 1px solid black;
+  /* border-top-right-radius: 40px;
+  border-bottom-right-radius: 40px; */
 }
 
 /* Заметки */
 
 .notes {
-    min-width: 120px; 
-    min-height: 120px;
-    margin: 5px;
-    background-color: rgb(247, 228, 121);
-    box-shadow: 1px 1px 3px 1px #c2c0c0;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    overflow-wrap: break-word;
+  min-width: 120px; 
+  min-height: 120px;
+  margin: 30px 5px;
+	margin-bottom: 0;
+  background-color: rgb(247, 228, 121);
+  box-shadow: 1px 1px 3px 1px #c2c0c0;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  overflow-wrap: break-word;
 }
 
-.notes>ul {
-    display: flex;
-    flex-direction: column;
+.notes>ul, .notes>.flex-revers>ul {
+  display: flex;
+  flex-direction: column;
+	padding: 0;
+	margin: 0;
 }
 
 .p-title {
-    font-size: 24px;
+  font-size: 27px;
 }
 
 .tasks {
-    display: flex;
-    list-style-type: disc;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  list-style-type: disc;
+	align-items: center;
+	margin: 0;
+}
+
+.tasks>input {
+	margin: 5px;
+}
+
+.tasks>p {
+	margin: 0;
+	font-size: 22px;
 }
 
 .flex-revers {
-    display: flex;
-    flex-direction: column-reverse;
+  display: flex;
+  flex-direction: column-reverse;
 }
 
 /* Модальное окно */
 
 section {
-    position: relative;
+  position: relative;
+	width: 30vw;
 }
 
 .modal {
@@ -184,8 +205,7 @@ section {
     margin-top: 0;
     margin-bottom: 0;
     line-height: 1.5;
-    font-weight: 500;
-    font-size: 1.25rem;
+    font-size: 2.5rem;
 }
 
 .close {
@@ -229,20 +249,51 @@ section {
     padding: 5px;
 }
 
-.btnModal {
-    width: 20px;
-    height: 20px;
-    display: block;
-    padding: 10px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    border-radius: 10px;
-    color: #000;
-    text-decoration: none;
-    margin: 20px;
-    position: absolute;
-    font-size: 30px;
-    text-align: center;
+label {
+	font-size: 1.75rem;
+}
+
+.addform>input, .addform>p>input {
+	font-family: "Alumni", "Arial", sans-serif;
+	width: 20vw;
+	height: 3vh;
+	border-radius: .3rem;
+	border: 1px solid rgba(0, 0, 0, .2);
+	color: #000000;
+	font-size: 25px;
+	font-weight: 1000;
+}
+
+input::placeholder {
+	font-family: "Alumni", "Arial", sans-serif;
+	font-weight: 1000;
+	color: #5c5b5b;
+	font-size: 25px;
+	opacity: .5;
+}
+
+.modallink {
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+	display: block;
+	align-items: center;
+  border: 1px solid #ccc;
+  background-color: #ffffff;
+  border-radius: 10px;
+  color: #3b3a3a;
+  text-decoration: none;
+  position: absolute;
+  text-align: center;
+	top: 0;
+	right: 0;
+}
+
+.modallink::before {
+	content: '+';
+	font-family: 'Arial';
+	font-size: 40px;
+	font-weight: 100;
 }
 
 .addform {
@@ -252,11 +303,20 @@ section {
 }
 
 .completed {
-    text-decoration: line-through;
+  text-decoration: line-through;
 }
 
 button {
-    cursor: pointer;
+  cursor: pointer;
+	background-color: #91ffad;
+	border: 1px solid #3b3a3a;
+	border-radius: 4rem;
+	font-family: "Alumni", "Arial", sans-serif;
+	color: #000000;
+	font-size: 1.75rem;
+	font-weight: 1000;
+	padding: 5px 25px;
+	/* margin: 5px; */
 }
 
 @media (min-width: 576px) {
