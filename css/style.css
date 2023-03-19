@@ -109,7 +109,7 @@ ul {
 
 .tasks {
   display: flex;
-  list-style-type: disc;
+  /* list-style-type: disc; */
 	align-items: center;
 	margin: 0;
 }
@@ -126,6 +126,10 @@ ul {
 .flex-revers {
   display: flex;
   flex-direction: column-reverse;
+}
+
+.completed {
+  text-decoration: line-through;
 }
 
 /* Модальное окно */
@@ -300,10 +304,6 @@ input::placeholder {
     display: flex;
     flex-direction: column;
     gap: 15px;
-}
-
-.completed {
-  text-decoration: line-through;
 }
 
 button {

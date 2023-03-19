@@ -31,6 +31,7 @@ Vue.component('columns', {
     },
     template:`
     <div id="columns">
+				<h2 class="error" v-for="error in errors">{{error}}</h2>
         <div class="column-wrapper">
             <div class="columns-wrapper">
                 <div class="column">
@@ -43,7 +44,7 @@ Vue.component('columns', {
                                 <li class="tasks" v-for="t in note.subtasks" v-if="t.title != null">
                                     <input @click="newStatus1(note, t)"
                                     class="checkbox" type="checkbox"
-                                    :disabled="t.completed">
+                                    :disabled="t.completed" :checked="t.completed">
                                     <p :class="{completed: t.completed}">{{t.title}}</p>
                                 </li>
                             </ul>
@@ -87,7 +88,6 @@ Vue.component('columns', {
                 </div>
             </div>
         </div>
-				<h2 class="error" v-for="error in errors">{{error}}</h2>
     </div>
     `,
     data() {
@@ -108,7 +108,7 @@ Vue.component('columns', {
                 this.column1.push(note)
                 this.saveNote1();
             } else {
-								eventBus.$emit('error-in-form', errors)
+							this.errors.push("Вы больше не можете добавить заметку.")
             }
         })
     },
@@ -152,7 +152,7 @@ Vue.component('columns', {
                     this.column2.push(note)
                     this.column1.splice(this.column1.indexOf(note), 1)
             } else if (this.column2.length === 5) {
-                this.errors.push('Сначала завершите дела из первых двух колонок.')
+                this.errors.push('Сначала завершите дела из второй колонки.')
                 if(this.column1.length > 0) {
                     this.column1.forEach(item => {
                         item.subtasks.forEach(item => {
@@ -209,8 +209,7 @@ Vue.component('newnote', {
                 <div class="modal-content">
                         <a href="#close" title="Закрыть" class="close">x</a>
                     <div class="modal-header">
-                        <h2 class="modal-title">Новая запись</h2>
-												<h2 class="error" v-for="error in errors">{{error}}</h2>
+                        <h2 class="modal-title">Новая запись</h2>								
                     </div>
                     <div class="modal-body">
                         <form class="addform" @submit.prevent="onSubmit">
@@ -243,11 +242,6 @@ Vue.component('newnote', {
             errors: [],
         }
     },
-		mounted () {
-			eventBus.$on('error-in-form', errors => {
-				this.errors.push("Вы не можете добавить заметку, пока не выполните новые задания.")
-			})
-		},
     methods: {
         onSubmit() {
             let note = {
