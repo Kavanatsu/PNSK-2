@@ -31,7 +31,11 @@ Vue.component('columns', {
     },
     template:`
     <div id="columns">
-				<h2 class="error" v-for="error in errors">{{error}}</h2>
+				<div class="modal-error" v-if="errors !== 0">
+					<div class="modal-error-dialog">
+						<h2 class="error" v-for="error in errors">{{error}}</h2>
+					</div>
+				</div>
         <div class="column-wrapper">
             <div class="columns-wrapper">
                 <div class="column">
@@ -77,7 +81,7 @@ Vue.component('columns', {
                                 <ul>
                                     <li class="tasks" v-for="t in note.subtasks" v-if="t.title != null">
                                         <input @click="t.completed = true"
-                                        class="checkbox" type="checkbox" 
+                                        class="checkbox" id="subtask" type="checkbox" 
                                         :disabled="t.completed">
                                         <p :class="{completed: t.completed}">{{t.title}}</p>
                                     </li>

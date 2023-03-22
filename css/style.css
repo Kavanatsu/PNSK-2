@@ -30,7 +30,36 @@ body {
 .error {
 	text-align: center;
 	font-size: 27px;
-	background-color: #ffc2c2;
+	background-color: #fdacac;
+	width: 25%;
+	border-radius: .3rem;
+}
+
+.modal-error {
+	position: fixed;
+	top: 40em;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1500;
+	opacity: 1;
+	-webkit-transition: opacity 200ms ease-in;
+	-moz-transition: opacity 200ms ease-in;
+	transition: opacity 200ms ease-in;
+	pointer-events: none;
+	margin: 0;
+	padding: 0;
+}
+
+.modal-error:target {
+	pointer-events: auto;
+	overflow-y: auto;
+}
+
+.modal-error-dialog {
+	position: relative;
+	width: auto;
+	margin: 10px;
 }
 
 /* Колонки */
